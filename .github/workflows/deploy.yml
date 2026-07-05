@@ -29,17 +29,16 @@ jobs:
 
       - name: 写入上传密钥
         run: |
-          echo "${{ secrets.WX_PRIVATE_KEY }}" > private.key
+          cat << 'EOF' > private.key
+          ${{ secrets.WX_PRIVATE_KEY }}
+          EOF
 
       - name: 执行上传脚本
         run: node deploy.js
         env:
           WX_APPID: ${{ secrets.WX_APPID }}
 
-      - name: 调试环境变量
-        run: |
-         echo "WX_APPID 是否为空: ${{ secrets.WX_APPID == '' }}"
-         echo "WX_APPID 长度: ${{ secrets.WX_APPID }}"
+
 
       - name: 清理密钥
         if: always()
