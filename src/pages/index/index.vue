@@ -7,7 +7,7 @@
     <view style="height: 20px;"></view>
 
 
-    <tr>2🐎</tr>
+
 
   </view>
 </template>
