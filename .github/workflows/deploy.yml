@@ -1,48 +1,45 @@
-name: 客户端小程序部署
+name: Deploy WeChat Mini Program
 
 on:
   push:
     branches:
       - master
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v5  # 🚀 从 v4 升级到 v5
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: 设置 Node.js
-        uses: actions/setup-node@v5  # 🚀 从 v4 升级到 v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '24'
-          cache: 'npm'
+          node-version: 20
+          cache: npm
 
-      - name: 安装依赖
-        run: npm install miniprogram-ci --save-dev
+      - name: Install project dependencies
+        run: npm ci
 
-      - name: 编译小程序产物
+      - name: Install miniprogram-ci
+        run: npm install --no-save miniprogram-ci
+
+      - name: Build WeChat mini program
         run: npm run build:mp-weixin
 
-
-      - name: 写入上传密钥
-        env:
-          WX_PRIVATE_KEY: ${{ secrets.WX_PRIVATE_KEY }}
+      - name: Write private key
         run: |
-          printf '%s\n' "$WX_PRIVATE_KEY" > private.key
-          chmod 600 private.key
-          
+          cat <<'EOF' > private.key
+          ${{ secrets.WX_PRIVATE_KEY }}
+          EOF
 
-
-      - name: 执行上传脚本
+      - name: Upload with miniprogram-ci
         run: node deploy.js
         env:
           WX_APPID: ${{ secrets.WX_APPID }}
 
-
-
-      - name: 清理密钥
+      - name: Cleanup private key
         if: always()
         run: rm -f private.key
