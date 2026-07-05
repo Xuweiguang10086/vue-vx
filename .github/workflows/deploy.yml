@@ -33,6 +33,7 @@ jobs:
         run: |
           printf '%s\n' "$WX_PRIVATE_KEY" > private.key
           chmod 600 private.key
+          
 
       - name: 执行上传脚本
         run: node deploy.js
