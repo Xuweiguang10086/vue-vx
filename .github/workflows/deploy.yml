@@ -1,4 +1,4 @@
-name: Deploy WeChat Mini Program
+name: deploy
 
 on:
   push:
