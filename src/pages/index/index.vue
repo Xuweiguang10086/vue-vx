@@ -5,7 +5,7 @@
       <text class="title">{{ title }}</text>
     </view>
     <view style="height: 20px;"></view>
-    <image src="/static/img.png"></image>
+
 
     <tr>2🐎</tr>
 
