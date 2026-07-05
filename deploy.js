@@ -19,6 +19,7 @@ const project = new ci.Project({
     ignores: ['node_modules/**', '.github/**'],
 });
 
+
 (async () => {
     try {
         const uploadResult = await ci.upload({
