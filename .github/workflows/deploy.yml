@@ -35,6 +35,7 @@ jobs:
           chmod 600 private.key
           
 
+
       - name: 执行上传脚本
         run: node deploy.js
         env:
