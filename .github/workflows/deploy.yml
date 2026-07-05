@@ -26,6 +26,7 @@ jobs:
       - name: 编译小程序产物
         run: npm run build:mp-weixin
 
+
       - name: 写入上传密钥
         run: |
           echo "${{ secrets.WX_PRIVATE_KEY }}" > private.key
